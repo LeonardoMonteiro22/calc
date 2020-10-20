@@ -2,17 +2,6 @@ import React, {Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-function Teste(string) {
-  return string.toFloat
-}
-
-// const operacoes = {
-//   '+': function (x,y) {return x+y},
-//   '-': function (x,y) {return x-y},
-//   '*': function (x,y) {return x*y},
-//   '/': function (x,y) {return x/y},
-// }
-
 function Display(props) {
   return (
     <div className="display">
@@ -52,19 +41,35 @@ class App extends Component {
   addNumber(number) {
     this.setState(
       (state, props) => {
-        return {
-          operadorAtual: state.operadorAtual + number
+        if (number === '.') {
+          if (state.operadorAtual.includes('.')  || state.operadorAtual === '') {
+            return {}
+          }
+          else {
+            return {
+              operadorAtual: state.operadorAtual + number
+            }
+          }
+        }
+        else {
+          return {
+            operadorAtual: state.operadorAtual + number
+          }
         }
       }
-    );
+    )
   }
 
   operation(operation) {
     this.setState(
       (state, props) => {
-        return {
-          operadorAnterior: state.operadorAtual + ' ' + operation,
-          operadorAtual: ''
+        if (state.operadorAtual !== '') {
+          if (state.operadorAnterior === '') {
+            return {
+              operadorAnterior: state.operadorAtual + ' ' + operation,
+              operadorAtual: ''
+            }
+          }
         }
       }
     )
@@ -73,7 +78,8 @@ class App extends Component {
   realizarOperacao() {
     this.setState(
       (state, props) => {
-        let op_str = state.operadorAnterior + ' ' + state.operadorAtual
+        if (state.operadorAtual !== '') {
+        let op_str = state.operadorAnterior + state.operadorAtual
         let valor_final = eval(op_str)
         let valor_final_str = valor_final.toString()
         return {
@@ -81,8 +87,9 @@ class App extends Component {
           operadorAnterior: ''
         }
       }
-    )
-  }
+   }
+ )
+}
 
   limpaTela() {
     this.setState(
@@ -122,7 +129,7 @@ class App extends Component {
           <div className="row">
             <Button text="0" aoClicar={() => this.addNumber("0")}/>
             <Button text="." aoClicar={() => this.addNumber(".")}/>
-            <Button text="=" aoClicar={() => this.realizarOperacao(".")}/>
+            <Button text="=" aoClicar={() => this.realizarOperacao()}/>
             <Button text="/" aoClicar={() => this.operation("/")}/>
           </div>
           <div className="row">
