@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 function Display(props) {
@@ -7,6 +6,14 @@ function Display(props) {
     <div className="display">
       <p className="anterior">{props.anterior}</p>
       <p className="atual">{props.atual}</p>
+    </div>
+  )
+}
+
+function DisplayMemoria(props) {
+  return (
+    <div className="dispmemo">
+      <p className="guardado">{props.guardado}</p>
     </div>
   )
 }
@@ -34,6 +41,10 @@ class App extends Component {
       operadorAtual: '',
       operadorAnterior: '',
       operacao: '',
+      guardado1: '',
+      guardado2: '',
+      guardado3: '',
+      guardado4: '',
     };
     this.addNumber = this.addNumber.bind(this);
   }
@@ -101,12 +112,115 @@ class App extends Component {
     )
   }
 
+  memoria(MX) {
+    this.setState(
+      (state, props) => {
+        if (MX === 'MC') {
+          return {
+            guardado1: '',
+            guardado2: '',
+            guardado3: '',
+            guardado4: '',
+          }
+        }
+        if (MX === 'MR') {
+          return {
+            operadorAtual: this.state.guardado1,
+          }
+        }
+        if (MX === 'M+') {
+          if (this.state.operadorAtual !== '') {
+            return {
+              operadorAtual: eval(this.state.guardado1 + '+' + this.state.operadorAtual)
+            }
+          }
+          else {
+            return {
+              operadorAtual: eval(this.state.guardado1)
+          }
+        }
+      }
+        if (MX === 'MS') {
+          return {
+            guardado4: this.state.guardado3,
+            guardado3: this.state.guardado2,
+            guardado2: this.state.guardado1,
+            guardado1: this.state.operadorAtual
+          }
+        }
+      }
+    )
+  }
+
+  memoIndividual(MX,number) {
+    this.setState(
+      (state,props) => {
+        if (MX === 'MC') {
+          if (number === 1) {
+            return {
+              guardado1: this.state.guardado2,
+              guardado2: this.state.guardado3,
+              guardado3: this.state.guardado4,
+              guardado4: ''
+            }
+          }
+          if (number === 2) {
+            return {
+              guardado2: this.state.guardado3,
+              guardado3: this.state.guardado4,
+              guardado4: ''
+            }
+          }
+          if (number === 3) {
+            return {
+              guardado3: this.state.guardado4,
+              guardado4: ''
+            }
+          }
+          if (number === 4) {
+            return {
+              guardado4: ''
+            }
+          }
+        }
+        else {
+          if (number === 1) {
+            return {
+              operadorAtual: this.state.guardado1
+            }
+          }
+          if (number === 2) {
+            return {
+              operadorAtual: this.state.guardado2
+            }
+          }
+          if (number === 3) {
+            return {
+              operadorAtual: this.state.guardado3
+            }
+          }
+          if (number === 4) {
+            return {
+              operadorAtual: this.state.guardado4
+            }
+          }
+        }
+      }
+    )
+  }
+
   render() {
     return (
       <div className="App">
         <div className="calculadora">
           <div className="row">
             <Display anterior={this.state.operadorAnterior}  atual={this.state.operadorAtual}/>
+          </div>
+          <div className="row">
+            <Button text="MC" aoClicar={() => this.memoria("MC")}/>
+            <Button text="MR" aoClicar={() => this.memoria("MR")}/>
+            <Button text="M+" aoClicar={() => this.memoria("M+")}/>
+            <Button text="MS" aoClicar={() => this.memoria("MS")}/>
           </div>
           <div className="row">
             <Button text="7" aoClicar={() => this.addNumber("7")}/>
@@ -135,6 +249,33 @@ class App extends Component {
           <div className="row">
             <ClearButton text="Clear" aoClicar={() => this.limpaTela()}/>
           </div>
+        </div>
+        <div className="memoria">
+          <div className="rowMemo">
+            <h2 className="titulo">Memória</h2>
+          </div>
+          <div className="rowMemo">
+            <DisplayMemoria guardado={this.state.guardado1}/>
+            <Button text="MC" aoClicar={() => this.memoIndividual("MC",1)}/>
+            <Button text="MR" aoClicar={() => this.memoIndividual("MR",1)}/>
+          </div>
+          <div className="rowMemo">
+            <DisplayMemoria guardado={this.state.guardado2}/>
+            <Button text="MC" aoClicar={() => this.memoIndividual("MC",2)}/>
+            <Button text="MR" aoClicar={() => this.memoIndividual("MR",2)}/>
+          </div>
+          <div className="rowMemo">
+            <DisplayMemoria guardado={this.state.guardado3}/>
+            <Button text="MC" aoClicar={() => this.memoIndividual("MC",3)}/>
+            <Button text="MR" aoClicar={() => this.memoIndividual("MR",3)}/>
+          </div>
+          <div className="rowMemo">
+            <DisplayMemoria guardado={this.state.guardado4}/>
+            <Button text="MC" aoClicar={() => this.memoIndividual("MC",4)}/>
+            <Button text="MR" aoClicar={() => this.memoIndividual("MR",4)}/>
+          </div>
+          <div className="row"><div className="space"></div></div>
+          <div className="row"><div className="footer"></div></div>
         </div>
       </div>
     );

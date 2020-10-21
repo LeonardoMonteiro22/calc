@@ -1,17 +1,40 @@
 .App {
-  display: flex;
-  justify-content: center;
-  text-align: center;
   height: 100vh;
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .calculadora {
-  width: 400px;
-  height: 600px;
+  flex: 1;
+  min-width: 300px;
+  max-width: 400px;
+  height: 80%;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.memoria {
+  flex: 1;
+  min-width: 300px;
+  max-width: 400px;
+  height: 80vh;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.calculadora:first-child {
+  flex-grow: 2;
 }
 
 .row {
+  flex: 1;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -19,36 +42,78 @@
   width: 100%;
 }
 
+.rowMemo{
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.guardado{
+  flex: 1;
+  margin: 0px;
+  padding: 0px 10px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
 .display {
-  height: 100px;
+  height: 100%;
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.74);
   color: white;
+  outline: 1px solid #888;
+}
+
+.titulo {
   flex: 1;
+  height: 100%;
+  box-sizing: border-box;
+  padding-left: 10px;
+  display: flex;
+  align-items: center;
+  margin: 0px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.74);
+  outline: 1px solid #888;
+}
+
+.dispmemo {
+  flex: 1;
+  min-width: 200px;
+  height: 100%;
+  display: flex;
+  background-color: #e0e1e6;
+  color: #888;
   outline: 1px solid #888;
 }
 
 .anterior {
-  flex: 1;
+  box-sizing: border-box;
+  height: 40%;
   margin: 0px;
   box-sizing: border-box;
-  height: 100vh;
   padding-top: 10px;
   padding-right: 10px;
   width: 100%;
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  font-size: 1.0em;
 }
 
 .atual {
-  flex: 3;
+  box-sizing: border-box;
+  height: 60%;
   margin: 0px;
   box-sizing: border-box;
-  height: 100vh;
   padding-top: 5px;
   padding-bottom: 5px;
   padding-right: 10px;
@@ -60,12 +125,13 @@
 }
 
 .meio {
-  height: 4em;
+  max-width: 100px;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   font-weight: lighter;
-  font-size: 1.6em;
+  font-size: 1.0em;
   background-color: #e0e1e6;
   color: #888;
   flex: 1;
@@ -73,12 +139,13 @@
 }
 
 .border {
+  max-width: 100px;
   background-color: rgb(0, 0, 192);
   color: white;
 }
 
 .clear {
-  height: 4em;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -87,5 +154,19 @@
   background-color: rgba(0, 0, 0, 0.74);
   color: white;
   flex: 1;
+  outline: 1px solid #888;
+}
+
+.space {
+  height: 100%;
+  width: 100%;
+  background-color: #e0e1e6;
+  outline: 1px solid #888;
+}
+
+.footer {
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.74);
   outline: 1px solid #888;
 }
